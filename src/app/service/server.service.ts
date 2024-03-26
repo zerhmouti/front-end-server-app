@@ -21,7 +21,7 @@ export class ServerService {
     tap(console.log),
     catchError(this.handleError)
   );
-
+    
 
   filter$ = (status: Status, response: CustomResponse) => <Observable<CustomResponse>>
   new Observable<CustomResponse>(
@@ -56,16 +56,23 @@ export class ServerService {
   );
 
   delte$ =(serverId:number): Observable<CustomResponse>=>  
-  this.http.delete<CustomResponse>(`${this.apiUrl}/server/delte/${serverId}`)
+  this.http.delete<CustomResponse>(`${this.apiUrl}/server/delete/${serverId}`)
   .pipe(
     tap(console.log),
     catchError(this.handleError)
   );
 
+  save$ =(data:Server): Observable<CustomResponse> =>
+    this.http.post(`${this.apiUrl}/server/save`,data)
+    .pipe(
+      tap(console.log),
+      catchError(this.handleError)
+    )
+  
   private handleError(error: HttpErrorResponse): Observable<never> {
     console.log(error);
     return throwError(`An error has occured - Error code : ${error.status}`);
   }
-  
+
 }
   
